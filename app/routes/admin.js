@@ -6,10 +6,10 @@ module.exports = function(app){
         var noticia = req.body;
         
         var connection = app.config.db();
-        var noticiasModel = app.app.models.noticiasModel;
+        var noticiasModel = new app.app.models.NoticiasDAO(connection);
 
-        noticiasModel.saveNoticia(connection, noticia, function(error, result){
-            res.redirect("/noticias");
+        noticiasModel.saveNoticia(noticia, function(error, result){
+            res.redirect("/noticias");t
          });    
     });
 };
