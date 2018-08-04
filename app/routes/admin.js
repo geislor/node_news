@@ -1,10 +1,20 @@
 module.exports = function(app){
     app.get('/formulario_inclusao_noticia', function(req, res){
-        res.render("admin/form_add_noticia");
+        res.render("admin/form_add_noticia", {validation: {}, noticia: {}});
     });
     app.post('/noticias/salvar', function(req, res){
         var noticia = req.body;
+
+        req.assert('titulo', 'Título é Obrigatório').notEmpty();
+        req.assert('resumo', 'Resumo é Obrigatório').notEmpty();
+        req.assert('resumo', 'Resumo deve conter entre 10 e 100 caracters').len(10,100);
         
+        var error = req.validationErrors();
+        if (error){
+            res.render("admin/form_add_noticia", {validation: error, noticia: noticia});
+            return;
+        }
+
         var connection = app.config.db();
         var noticiasModel = new app.app.models.NoticiasDAO(connection);
 

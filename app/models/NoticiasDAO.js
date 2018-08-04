@@ -1,5 +1,5 @@
 function NoticiasDAO(connection){
-    topis._connection = connection;
+    this._connection = connection;
 }
 
 NoticiasDAO.prototype.getNoticias = function(callback) {
