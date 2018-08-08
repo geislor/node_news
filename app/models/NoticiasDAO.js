@@ -16,7 +16,9 @@ NoticiasDAO.prototype.getLastFive = function(callback){
 }
 
 NoticiasDAO.prototype.saveNoticia = function(noticia, callback) {
+    console.log(noticia);
     this._connection.query('insert into noticias set ?', noticia, callback);
+    console.log('SALVOU');
 }
  
 module.exports = function(){
